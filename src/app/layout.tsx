@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     description: "مؤسسة تراكيب متخصصة في تنفيذ الخزائن والجدران الديكورية بتصاميم عصرية وجودة عالية في السعودية.",
     type: "website",
     locale: "ar_SA",
-    url: "https://tarakib.sa/",
+    // url: "https://tarakib.sa/",
     siteName: "تراكيب"
   },
   twitter: {

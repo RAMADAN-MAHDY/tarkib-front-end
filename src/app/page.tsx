@@ -5,6 +5,7 @@ import Services from "./components/Services";
 import Gallery from "./components/Gallery";
 // import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import ChatBotWidget from "./components/chatAI/ChatBot";
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
         <About />
         <Services />
         <Gallery />
+        <ChatBotWidget />
         {/* <Contact /> */}
       </main>
       <Footer />
