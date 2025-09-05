@@ -8,7 +8,7 @@ export default function UserDetails() {
   const [loading, setLoading] = useState(true);
     const router = useRouter();
 
-  const apiUrl = process.env.NEXT_PUBLIC_URL;
+  const apiUrl = process.env.NEXT_PUBLIC_URL_chatAi;
 
   useEffect(() => {
     const fetchUser = async () => {
