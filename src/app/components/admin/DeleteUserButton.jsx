@@ -11,7 +11,7 @@ export default function ConfirmDeleteButton({ userId, onDeleted }) {
     setError("");
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/DELETusers/${userId}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_URL_chatAi}/DELETusers/${userId}`, {
         method: "DELETE",
       });
 

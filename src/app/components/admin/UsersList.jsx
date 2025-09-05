@@ -7,7 +7,7 @@ export default function UsersList() {
     const [loading, setLoading] = useState(true);
     const router = useRouter();
 
-    const apiUrl = process.env.NEXT_PUBLIC_URL;
+    const apiUrl = process.env.NEXT_PUBLIC_URL_chatAi;
 
     const fetchUsers = async () => {
         try {

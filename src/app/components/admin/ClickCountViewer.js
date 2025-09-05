@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 
 export default function ClickCountViewer() {
-  const url = process.env.NEXT_PUBLIC_URL;
+  const url = process.env.NEXT_PUBLIC_URL_chatAi;
 
   const [whatsAppClicks, setWhatsAppClicks] = useState(0);
   const [telClicks, setTelClicks] = useState(0);
