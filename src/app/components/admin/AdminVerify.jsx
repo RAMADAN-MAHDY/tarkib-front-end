@@ -7,7 +7,7 @@ import AdminLogout from './AdminLogout';
 
 const API_URL = process.env.NEXT_PUBLIC_URL_chatAi;
 
-export default function AdminVerify() {
+export default function AdminVerify({ onVerify }) {
   const [isVerified, setIsVerified] = useState(false);
   const [loading, setLoading] = useState(true);
   const [admin, setAdmin] = useState(null);
@@ -20,25 +20,30 @@ export default function AdminVerify() {
         if (res.status === 200) {
           setIsVerified(true);
           setAdmin(res.data.admin);
+          if (onVerify) onVerify(true);
         }
       } catch {
         setIsVerified(false);
         setAdmin(null);
+        if (onVerify) onVerify(false);
       } finally {
         setLoading(false);
       }
     };
     verify();
+    // eslint-disable-next-line
   }, []);
 
   const handleLogin = () => {
     setIsVerified(true);
     setAdmin('admin');
+    if (onVerify) onVerify(true);
   };
 
   const handleLogout = () => {
     setIsVerified(false);
     setAdmin(null);
+    if (onVerify) onVerify(false);
   };
 
   if (loading) return <div className="flex justify-center items-center min-h-[40vh] text-blue-600">جاري التحقق...</div>;
