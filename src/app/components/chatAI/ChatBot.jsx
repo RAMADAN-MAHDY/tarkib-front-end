@@ -88,11 +88,50 @@ export default function ChatBotWidget() {
             if (!data.token && token) {
                 localStorage.removeItem("token");
             }
+            console.log(data)
             setHistory(h => [...h, { from: "bot", text: data?.reply || " يوجد ضغط حاليا من فضلك التواصل علي هذا الرقم 0562790402 او حاول ثانيا" }]);
         } catch {
             setHistory(h => [...h, { from: "bot", text: "صارت مشكلة في الاتصال بالمساعد. يرجي التواصل عبر الجوال 01021256768" }]);
         }
         setLoading(false);
+    };
+
+
+      const handleConfirm = async () => {
+        if (loading) return;
+        setLoading(true);
+        let token = localStorage.getItem("token");
+
+        try {
+            const res = await fetch(`${url}/analyze`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(token && { Authorization: `Bearer ${token}` })  // Use the token for authorization
+                },
+                body: JSON.stringify(),
+            });
+            const data = await res.json();
+
+            console.log("data.token", data)
+
+            const replyMsg = data.agreement
+                ? (data.reply || "✅ تم تأكيد الحجز بنجاح، سنقوم بالتواصل معك قريبًا!")
+                : (data.reply || data.message || "من فضلك أدخل البيانات أولًا، أو على الأقل رقم الجوال للتواصل 📱");
+
+            setHistory(h => [
+                ...h,
+                { from: "user", text: "تم الاتفاق" },
+                { from: "bot", text: replyMsg }
+            ]);
+        } catch {
+            setHistory(h => [
+                ...h,
+                { from: "bot", text: "صارت مشكلة في إرسال تأكيدك." },
+            ]);
+        } finally {
+            setLoading(false);
+        }
     };
 
 
@@ -228,6 +267,14 @@ export default function ChatBotWidget() {
                                 onKeyDown={(e) => e.key === "Enter" && handleSend()}
                                 disabled={loading}
                             />
+                                  <button
+                                onClick={handleConfirm}
+                                disabled={loading}
+                                className="bg-green-600 text-white px-4 py-2 rounded-lg font-bold hover:bg-green-700 transition disabled:opacity-50 flex-shrink-0"
+                                aria-label="تم الاتفاق"
+                            >
+                                تم الاتفاق
+                            </button>
                             <button
                                 className="bg-blue-600 text-white px-4 py-2 rounded-lg font-bold hover:bg-blue-700 transition disabled:opacity-50 flex-shrink-0"
                                 onClick={handleSend}
